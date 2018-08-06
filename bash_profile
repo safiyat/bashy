@@ -22,7 +22,6 @@ export LC_ALL=C
 # alias ll="ls -lhA"
 
 alias psg="ps aux | grep -v grep | grep --color=never -i -e VSZ -e"
-# alias kproc="kill -9 <<< $(psg $(awk '{print $1}')) <<< "
 alias aria="aria2c --quiet=true &"
 alias aria-web="cd ${HOME}/.aria2/web-ui/ && node node-server.js &"
 
@@ -135,33 +134,32 @@ fi
 
 alias tailf="tail -f"
 
-
 if [ $(uname) == "Darwin" ]; then
     if [ -f ~/.bash_profile_mac ]; then
         . ~/.bash_profile_mac
     fi
 fi
 
-alias mysql="/usr/local/mysql/bin/mysql -uroot -pqwerty touchstone"
-
-alias check_ssh="echo \"echo Hello World; exit\" | ssh -i ~/touchstone_key"
-export PATH="/usr/local/opt/libxml2/bin:$PATH"
-export PATH="/usr/local/opt/libxslt/bin:$PATH"
 alias s="source venv/bin/activate"
 alias d="deactivate"
 alias v="virtualenv venv"
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 
-export PATH="/usr/local/opt/ncurses/bin:$PATH"
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
-export PATH="/usr/local/opt/sphinx-doc/bin:$PATH"
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-# export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-
-alias emacs="/Users/safiyat/.emacs.d/emacs.sh"
 export GPG_TTY=$(tty)
-export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/sbin:$PATH"
-export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
+
+function e()
+{
+    # Alias for emacs client.
+    server_file=/tmp/emacs$(id -u)/server
+    if [[ ! -S ${server_file} ]]; then
+        emacs --daemon
+    fi
+
+    # TERM or not a TERM. That, is the question.
+    if [[ ${TERM} = "xterm-256color" ]]; then
+        window_command="-nw"
+    else
+        window_command="-c"
+    fi
+
+    emacsclient ${window_command} $@
+}
