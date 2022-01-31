@@ -1,0 +1,10 @@
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+. /etc/bash_completion
+fi
+
+# Completions for kubectl
+if which -s kubectl; then
+    source <(kubectl completion bash)
+fi
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

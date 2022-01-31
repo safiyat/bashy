@@ -1,0 +1,9 @@
+# TTY vars
+
+# File exporting tty variables for applications that require them.
+
+export GPG_TTY=$(tty)
+
+
+
+# export EDITOR="emacs"

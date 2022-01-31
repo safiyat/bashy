@@ -1,0 +1,1 @@
+alias start_vm="/Applications/VirtualBox.app/Contents/MacOS/VBoxHeadless --comment ubuntu2004 --startvm c17e8627-594a-486b-8c67-b36fc59dfa81 --vrde config"

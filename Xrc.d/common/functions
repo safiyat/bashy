@@ -1,0 +1,101 @@
+function check_ssh(){
+    start_time=$(date +%s)
+    echo -n Trying to SSH to $@ ..
+    while true; do
+        echo -n .
+        if ssh $@ "exit" 2> /dev/null > /dev/null; then
+            break
+        fi
+        sleep 1
+    done
+    echo
+    end_time=$(date +%s)
+    total_time=$(expr ${end_time} - ${start_time})
+    echo -e "\n"
+    echo Waited for SSH for $(date -ud "@$total_time" +'%H hours %M minutes %S seconds').
+    ssh $@
+}
+
+function check_ssh_alive(){
+   echo -n Trying to SSH to $@ ..
+   while true; do
+       echo -n .
+       if ssh $@ "exit" 2> /dev/null > /dev/null; then
+           break
+       fi
+       sleep 1
+   done
+   echo
+   while true; do
+       ssh $@ "echo $(date) alive"
+   done
+}
+
+
+function v(){
+    set -x
+    venv_name=${1:-venv}
+    python_bin=${2:-python}
+    ${python_bin} -m venv --copies ${venv_name}
+    set +x
+}
+
+function s(){
+    set -x
+    venv_name=${1:-venv}
+    source ${venv_name}/bin/activate
+    set +x
+}
+
+
+# Vim pager tool
+function vmore(){
+    if [[ -e ~/.vimrc.more ]]; then
+        vim -u ~/.vimrc.more - $@
+    else
+        echo "No .vimrc.more found in the HOME directory." > /dev/stderr
+    fi
+}
+
+
+# PID / Process name based search
+function psg(){
+    output=$(ps aux | grep -v grep | grep --color=never --ignore-case -e VSZ -e "$@")
+    if ! grep -q --ignore-case "$@" <<< "${output}"; then
+        echo "No processes found."
+    else
+        echo "${output}"
+    fi
+}
+
+
+function aria-web(){
+    if [[ -e ${HOME}/.aria2/web-ui/node-server.js ]]; then
+        nvm install --lts
+        nvm use --lts
+        cd ${HOME}/.aria2/web-ui/ && node node-server.js > /Users/safiyat/.aria2/aria-web.log 2> /Users/safiyat/.aria2/aria-web.log.err &
+    else
+        echo "No node-server.js found in ${HOME}/.aria2/web-ui/" > /dev/stderr
+    fi
+}
+
+function netstat_like() {
+    OUTPUT=$(sudo lsof -i -n -P | grep -e TCP -e UDP -e COMMAND)
+    if [[ -n "${@}" ]]; then
+        echo "${OUTPUT}" | grep -e COMMAND -e ${@}
+    else
+        echo "${OUTPUT}"
+    fi
+}
+
+function long_clear() {
+    len=$1
+    len=${len:-100}
+    python -c "print('\n' * ${len})"
+}
+
+function loiter() {
+    source /Users/safiyat/GitHub/mouse_cursor_randomizer/venv/bin/activate
+    python /Users/safiyat/GitHub/mouse_cursor_randomizer/move.py
+    deactivate
+}

@@ -1,0 +1,6 @@
+export LC_ALL=C
+export LANG=C
+export LC_CTYPE=UTF-8
+
+# Exit if not an interactive shell.
+[ -z "$PS1" ] && return

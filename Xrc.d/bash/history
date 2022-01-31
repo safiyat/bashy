@@ -1,0 +1,8 @@
+# Append, not overwrite.
+shopt -s histappend
+
+HISTCONTROL=ignoredups:erasedups
+
+HISTSIZE=10000
+HISTFILESIZE=200000
+

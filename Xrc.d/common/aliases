@@ -1,0 +1,19 @@
+alias tailf="tail -f"
+
+# To deactivate a python virtual environment.
+alias d="deactivate"
+
+# To start aria2c in the background. Reads ~/.aria2/aria2.conf if present.
+alias aria="aria2c --quiet=true &"
+
+# To generate UUIDs in lower case characters.
+alias uuidgen="uuidgen | tr [A-Z] [a-z]"
+
+# Pretty JSON
+alias pretty-json="python -mjson.tool | pygmentize -l json"
+
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
