@@ -2,9 +2,14 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 . /etc/bash_completion
 fi
 
+for completion in $(find /etc/bash_completion.d -type f); do
+    test -x ${completion} && . ${completion}
+done
+
 # Completions for kubectl
 if which -s kubectl; then
     source <(kubectl completion bash)
 fi
 
+# iterm2 integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

@@ -60,16 +60,46 @@ function vmore(){
 
 # PID / Process name based search
 function psg(){
+    # set -x
+    if [[ -z "$@" ]]; then
+        echo No search string.
+        return
+    fi
     output=$(ps aux | grep -v grep | grep --color=never --ignore-case -e VSZ -e "$@")
     if ! grep -q --ignore-case "$@" <<< "${output}"; then
         echo "No processes found."
     else
         echo "${output}"
     fi
+    # set +x
+}
+
+# Kill based on the output of psg
+function psg_kill(){
+    # set -x
+    signal=
+    first_param=$1
+    if [[ "${first_param}" =~ ^[+-]?([0-9]+([.][0-9]*)?|\.[0-9]+)$ ]] && [ "${first_param}" -lt 0 ] && [ "${first_param}" -gt -10 ]; then
+        # Is a signal.
+        signal="${first_param}"
+        shift
+    fi
+    psg_output="$(psg $@)"
+    if [[ "${psg_output}" == "No processes found." ]] || [[ "${psg_output}" == "No search string." ]]; then
+        echo "${psg_output}"
+        set +x
+        return
+    fi
+    pids=$(echo "${psg_output}" | grep -v VSZ | awk '{print $2}')
+    command="kill ${signal} ${pids}"
+    echo ${command}
+    ${command}
+    # set +x
 }
 
 
 function aria-web(){
+    # set -x
     if [[ -e ${HOME}/.aria2/web-ui/node-server.js ]]; then
         nvm install --lts
         nvm use --lts
@@ -77,6 +107,7 @@ function aria-web(){
     else
         echo "No node-server.js found in ${HOME}/.aria2/web-ui/" > /dev/stderr
     fi
+    # set +x
 }
 
 function netstat_like() {

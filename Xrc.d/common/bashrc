@@ -1,6 +1,10 @@
 export LC_ALL=C
-export LANG=C
+export LANG=C.UTF-8
 export LC_CTYPE=UTF-8
 
 # Exit if not an interactive shell.
 [ -z "$PS1" ] && return
+
+if [ -d "/opt/homebrew/bin" ]; then
+    export PATH=/opt/homebrew/bin:$PATH
+fi

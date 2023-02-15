@@ -10,6 +10,18 @@
 
 echo "Called .bash_profile."
 
+export HOMEBREW_PREFIX="/opt/homebrew";
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+export HOMEBREW_REPOSITORY="/opt/homebrew";
+
+if [ -d /opt/homebrew/bin ]; then
+    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+fi
+if [ -d /opt/homebrew/share/man ]; then
+    export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+    export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+fi
+
 # if [ -d /Users/safiyat/.bash_profile.d/ ]; then
 # 	for bash_profile in $(find /Users/safiyat/.bash_profile.d -type f); do
 # 		source ${bash_profile}
@@ -35,7 +47,25 @@ if [ -f /Users/safiyat/.bashrc ]; then
 fi
 
 # Required for discovering gmp.h when installing pycrypto.
-export "CFLAGS=-I/usr/local/include -L/usr/local/lib"
+# export "CFLAGS=-I/usr/local/include -L/usr/local/lib"
+export "CFLAGS=-I/usr/local/include"
 # export CPPFLAGS=-I/usr/local/opt/openssl/include
 # export LDFLAGS=-L/usr/local/opt/openssl/lib
 #set +x
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+
+# Setting PATH for Python 2.7
+# The original version is saved in .bash_profile.pysave
+if [ -d /Library/Frameworks/Python.framework/Versions/2.7/bin ]; then
+    PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+fi
+
+# Setting PATH for Python 3.7
+# The original version is saved in .bash_profile.pysave
+if [ -d /Library/Frameworks/Python.framework/Versions/3.7/bin ]; then
+    PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+fi
+
+export PATH

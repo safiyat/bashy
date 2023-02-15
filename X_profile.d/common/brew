@@ -1,18 +1,51 @@
 # brew installs many bins here.
 export PATH="/usr/local/sbin:$PATH"
 
+function prepend_to_path() {
+    # set -x
+    path="$1"
+
+    if [ -d "${path}" ]; then
+        export PATH="${path}:$PATH"
+    fi
+    # set +x
+}
+
+function append_to_ldflags() {
+    # set -x
+    ld_path="$1"
+
+    if [ -d "${ld_path}" ]; then
+        export LDFLAGS="${LDFLAGS} -L${ld_path}"
+    fi
+    # set +x
+}
+
+function append_to_cppflags() {
+    # set -x
+    cpp_path="$1"
+
+    if [ -d "${cpp_path}" ]; then
+        export CPPFLAGS="${CPPFLAGS} -I${cpp_path}"
+        export CFLAGS="${CFLAGS} -I${cpp_path}"
+    fi
+    # set +x
+}
+
+brew_prefix=$(brew --prefix)
+
 ###############################################################################
 ###############################################################################
 
 # If you need to have openssl@1.1 first in your PATH run:
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+prepend_to_path "${brew_prefix}/opt/openssl@1.1/bin"
 
 ###############################################################################
 ###############################################################################
 
 # For compilers to find openssl@1.1 you may need to set:
-export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+append_to_ldflags "${brew_prefix}/opt/openssl@1.1/lib"
+append_to_cppflags "${brew_prefix}/opt/openssl@1.1/include"
 
 ###############################################################################
 ###############################################################################
@@ -25,7 +58,7 @@ export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 ###############################################################################
 
 # If you need to have sqlite first in your PATH run:
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
+prepend_to_path "${brew_prefix}/opt/sqlite/bin"
 
 # For compilers to find sqlite you may need to set:
 #export LDFLAGS="-L/usr/local/opt/sqlite/lib"
@@ -35,8 +68,8 @@ export PATH="/usr/local/opt/sqlite/bin:$PATH"
 ###############################################################################
 
 # If you need to have python@3.7 first in your PATH run:
-export PATH="/usr/local/opt/python@3.7/bin:$PATH"
-export PATH="/usr/local/opt/python@3.7/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
+prepend_to_path "${brew_prefix}/opt/python@3.7/bin"
+prepend_to_path "${brew_prefix}/opt/python@3.7/Frameworks/Python.framework/Versions/3.7/bin"
 
 # For compilers to find python@3.7 you may need to set:
 #export LDFLAGS="-L/usr/local/opt/python@3.7/lib"
@@ -65,7 +98,7 @@ export PATH="/usr/local/opt/python@3.7/Frameworks/Python.framework/Versions/3.7/
 ###############################################################################
 
 # If you need to have ruby first in your PATH run:
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+prepend_to_path "${brew_prefix}/opt/ruby/bin"
 # For compilers to find ruby you may need to set:
 #export LDFLAGS="-L/usr/local/opt/ruby/lib"
 #export CPPFLAGS="-I/usr/local/opt/ruby/include"
@@ -74,20 +107,20 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 ###############################################################################
 
 # Vim 8.2
-export PATH="/usr/local/Cellar/vim/8.2.1800_1/bin/:$PATH"
+prepend_to_path "${brew_prefix}/Cellar/vim/8.2.1800_1/bin/"
 
 ###############################################################################
 ###############################################################################
 
 # git 2.28.0
-export PATH="/usr/local/Cellar/git/2.28.0/bin/:$PATH"
+prepend_to_path "${brew_prefix}/Cellar/git/2.28.0/bin/"
 
 ###############################################################################
 ###############################################################################
 
 # If you need to use these commands with their normal names, you
 # can add a "gnubin" directory to your PATH from your bashrc like:
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+prepend_to_path "${brew_prefix}/opt/coreutils/libexec/gnubin"
 
 ###############################################################################
 ###############################################################################
@@ -120,7 +153,7 @@ export GUILE_TLS_CERTIFICATE_DIRECTORY=/usr/local/etc/gnutls/
 
 # If you need to use these commands with their normal names, you
 # can add a "gnubin" directory to your PATH from your bashrc like:
-PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+prepend_to_path "${brew_prefix}/opt/grep/libexec/gnubin"
 
 ###############################################################################
 ###############################################################################
@@ -129,7 +162,7 @@ PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 # because this is an alternate version of another formula.
 
 # If you need to have mysql@5.7 first in your PATH run:
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+prepend_to_path "${brew_prefix}/opt/mysql@5.7/bin"
 
 # For compilers to find mysql@5.7 you may need to set:
 #export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
@@ -142,7 +175,7 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 ###############################################################################
 
 # If you need to have ncurses first in your PATH run:
-export PATH="/usr/local/opt/ncurses/bin:$PATH"
+prepend_to_path "${brew_prefix}/opt/ncurses/bin"
 
 # For compilers to find ncurses you may need to set:
 #export LDFLAGS="-L/usr/local/opt/ncurses/lib"
@@ -154,8 +187,8 @@ export PATH="/usr/local/opt/ncurses/bin:$PATH"
 ###############################################################################
 ###############################################################################
 
-# If you need to have mongodb-community@4.0 first in your PATH run:
-export PATH="/usr/local/opt/mongodb-community@4.0/bin:$PATH"
+# If you need to have mongodb-community@4.4 first in your PATH run:
+prepend_to_path "${brew_prefix}/opt/mongodb-community@4.4/bin"
 
 ###############################################################################
 ###############################################################################
@@ -171,8 +204,8 @@ export PATH="/usr/local/opt/mongodb-community@4.0/bin:$PATH"
 ###############################################################################
 
 # If you need to have icu4c first in your PATH run:
-export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/sbin:$PATH"
+prepend_to_path "${brew_prefix}/opt/icu4c/bin"
+prepend_to_path "${brew_prefix}/opt/icu4c/sbin"
 
 # For compilers to find icu4c you may need to set:
 #export LDFLAGS="-L/usr/local/opt/icu4c/lib"
@@ -185,25 +218,27 @@ export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 ###############################################################################
 
 unset CFLAGS
-export LDFLAGS="$LDFLAGS -L/usr/local/lib"
-export CPPFLAGS="$CPPFLAGS -I/usr/local/include"
+# append_to_ldflags "/usr/local/lib"
+append_to_ldflags "${brew_prefix}/lib"
+append_to_cppflags "/usr/local/include"
+append_to_cppflags "${brew_prefix}/include"
 
 ###############################################################################
 ###############################################################################
 
-export PATH="/usr/local/opt/libxml2/bin:$PATH"
-export LDFLAGS="$LDFLAGS -L/usr/local/opt/libxml2/lib"
-export CPPFLAGS="$CPPFLAGS -I/usr/local/opt/libxml2/include"
+prepend_to_path "${brew_prefix}/opt/libxml2/bin"
+append_to_ldflags "${brew_prefix}/opt/libxml2/lib"
+append_to_cppflags "${brew_prefix}/opt/libxml2/include"
 
 ###############################################################################
 ###############################################################################
 
-export PATH="/usr/local/opt/libiconv/bin:$PATH"
-export LDFLAGS="$LDFLAGS -L/usr/local/opt/libiconv/lib"
-export CPPFLAGS="$CPPFLAGS -I/usr/local/opt/libiconv/include"
+prepend_to_path "${brew_prefix}/opt/libiconv/bin"
+append_to_ldflags "${brew_prefix}/opt/libiconv/lib"
+append_to_cppflags "${brew_prefix}/opt/libiconv/include"
 
 ###############################################################################
 ###############################################################################
 
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-export CPPFLAGS="$CPPFLAGS -I/usr/local/opt/openjdk/include"
+prepend_to_path "${brew_prefix}/opt/openjdk/bin"
+append_to_cppflags "${brew_prefix}/opt/openjdk/include"
