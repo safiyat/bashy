@@ -1,1 +1,4 @@
+# https://github.com/python/cpython/issues/77906
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+# https://support.apple.com/en-us/HT208050
+export BASH_SILENCE_DEPRECATION_WARNING=1
