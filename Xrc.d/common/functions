@@ -130,3 +130,17 @@ function loiter() {
     python /Users/safiyat/GitHub/mouse_cursor_randomizer/move.py
     deactivate
 }
+
+function keep_alive() {
+    function trap_method() {
+        trap - INT
+        echo
+        echo We kept the session alive till: $(date)
+    }
+    trap trap_method INT
+    echo Keep alive starting at: $(date)
+    while true; do
+        echo -n .
+        sleep 1
+    done
+}
