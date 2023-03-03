@@ -6,6 +6,10 @@ for completion in $(find /etc/bash_completion.d -type f); do
     test -x ${completion} && . ${completion}
 done
 
+for completion in $(find /opt/homebrew/share/bash-completion/completions ! -type d); do
+    test -x ${completion} && . ${completion}
+done
+
 # Completions for kubectl
 if which -s kubectl; then
     source <(kubectl completion bash)
