@@ -242,3 +242,9 @@ append_to_cppflags "${brew_prefix}/opt/libiconv/include"
 
 prepend_to_path "${brew_prefix}/opt/openjdk/bin"
 append_to_cppflags "${brew_prefix}/opt/openjdk/include"
+
+###############################################################################
+###############################################################################
+
+append_to_ldflags  "${brew_prefix}/opt/openblas/lib"
+append_to_cppflags "${brew_prefix}/opt/openblas/include"

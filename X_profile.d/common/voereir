@@ -16,6 +16,8 @@ alias cdT="cd ${CODE}/Tools"
 alias cds="cd ${CODE}/scripts"
 alias cdo="cd /Users/safiyat/VoerEirAB/openRCs"
 
+alias ts="source ${CODE}/venv/bin/activate"
+
 function fetch_mos_cert(){
   FUEL_SERVER=141.255.186.158
   CONTROLLER=node-2

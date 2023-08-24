@@ -91,7 +91,7 @@ function psg_kill(){
         return
     fi
     pids=$(echo "${psg_output}" | grep -v VSZ | awk '{print $2}')
-    command="kill ${signal} ${pids}"
+    command="sudo /bin/kill ${signal} ${pids}"
     echo ${command}
     ${command}
     # set +x
