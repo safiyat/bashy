@@ -1,0 +1,22 @@
+# Path updation for MacTeX 2023.
+# Home page: https://www.tug.org/mactex/mactex-download.html
+# Sourced from: https://mirror.niser.ac.in/ctan/systems/mac/mactex/mactex-20230314.pkg
+
+function prepend_to_path() {
+    # set -x
+    path="$1"
+
+    if [ -d "${path}" ]; then
+        export PATH="${path}:$PATH"
+    fi
+    # set +x
+}
+
+###############################################################################
+###############################################################################
+
+# latexmk is installed here.
+prepend_to_path "/usr/local/texlive/2023/bin/universal-darwin/"
+
+###############################################################################
+###############################################################################
