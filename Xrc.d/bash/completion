@@ -15,5 +15,10 @@ if which -s kubectl; then
     source <(kubectl completion bash)
 fi
 
+# pipx completions
+if command -v pipx > /dev/null; then
+    eval "$(register-python-argcomplete pipx)"
+fi
+
 # iterm2 integration
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

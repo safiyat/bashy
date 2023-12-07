@@ -30,3 +30,8 @@ function fetch_mos_cert(){
   ssh root@"${FUEL_SERVER}" "rm ${INTERMEDIATE_PATH}"
   ln -sf ${OUTPUT_PATH} /Users/safiyat/VoerEirAB/openRCs/cacert.pem
 }
+
+# To enable webpack.
+if [ -d /Users/safiyat/VoerEirAB/Code/touchstone-web/node_modules/.bin/ ]; then
+  export PATH=/Users/safiyat/VoerEirAB/Code/touchstone-web/node_modules/.bin/:${PATH}
+fi

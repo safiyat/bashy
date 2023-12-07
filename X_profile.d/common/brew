@@ -248,3 +248,8 @@ append_to_cppflags "${brew_prefix}/opt/openjdk/include"
 
 append_to_ldflags  "${brew_prefix}/opt/openblas/lib"
 append_to_cppflags "${brew_prefix}/opt/openblas/include"
+
+###############################################################################
+###############################################################################
+
+prepend_to_path "${brew_prefix}/share/google-cloud-sdk/bin/"

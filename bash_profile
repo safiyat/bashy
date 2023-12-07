@@ -34,18 +34,6 @@ fi
 #SCRIPT_DIR=$(greadlink -f $0)
 SCRIPT_DIR=/Users/safiyat/GitHub/bashy
 
-for directory in ${SCRIPT_DIR}/X_profile.d/common ${SCRIPT_DIR}/X_profile.d/bash; do
-	if [ -d ${directory} ]; then
-		for bash_profile in $(find ${directory} -type f); do
-			source ${bash_profile}
-		done
-	fi
-done
-
-if [ -f /Users/safiyat/.bashrc ]; then
-	source /Users/safiyat/.bashrc
-fi
-
 # Required for discovering gmp.h when installing pycrypto.
 # export "CFLAGS=-I/usr/local/include -L/usr/local/lib"
 export "CFLAGS=-I/usr/local/include"
@@ -69,3 +57,22 @@ if [ -d /Library/Frameworks/Python.framework/Versions/3.7/bin ]; then
 fi
 
 export PATH
+
+# Setting PATH for Python 3.10
+# The original version is saved in .bash_profile.pysave
+if [ -d /Library/Frameworks/Python.framework/Versions/3.10/bin ]; then
+    PATH="/Library/Frameworks/Python.framework/Versions/3.10/bin:${PATH}"
+fi
+export PATH
+
+for directory in ${SCRIPT_DIR}/X_profile.d/common ${SCRIPT_DIR}/X_profile.d/bash; do
+	if [ -d ${directory} ]; then
+		for bash_profile in $(find ${directory} -type f); do
+			source ${bash_profile}
+		done
+	fi
+done
+
+if [ -f /Users/safiyat/.bashrc ]; then
+	source /Users/safiyat/.bashrc
+fi

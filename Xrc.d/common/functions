@@ -103,7 +103,8 @@ function aria-web(){
     if [[ -e ${HOME}/.aria2/web-ui/node-server.js ]]; then
         nvm install --lts
         nvm use --lts
-        cd ${HOME}/.aria2/web-ui/ && node node-server.js > /Users/safiyat/.aria2/aria-web.log 2> /Users/safiyat/.aria2/aria-web.log.err &
+        # Refer: https://github.com/safiyat/webui-aria2/commit/6e43ed5236479b37b2270d7e33c7f3ffc87992d2
+        cd ${HOME}/.aria2/web-ui/ && node node-server.js 8888 127.0.0.1 > /Users/safiyat/.aria2/aria-web.log 2> /Users/safiyat/.aria2/aria-web.log.err &
     else
         echo "No node-server.js found in ${HOME}/.aria2/web-ui/" > /dev/stderr
     fi

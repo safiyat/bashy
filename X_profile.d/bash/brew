@@ -7,3 +7,17 @@ fi
 
 ###############################################################################
 ###############################################################################
+
+# Sourcing files to update various variables.
+function source_file() {
+    # set -x
+    path="$1"
+
+    if [ -f "${path}" ]; then
+        source "${path}"
+    fi
+    # set +x
+}
+
+
+source_file "$(brew --prefix)/share/google-cloud-sdk/path.bash.inc"
