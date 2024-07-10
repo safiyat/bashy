@@ -1,4 +1,4 @@
-CODE=/Users/safiyat/VoerEirAB/Code
+CODE=${HOME}/VoerEirAB/Code
 alias cdte="cd ${CODE}/touchstone-engine"
 alias cdtc="cd ${CODE}/touchstone-common"
 alias cdtcm="cd ${CODE}/touchstone-common/touchstone_common/db/migration"
@@ -14,9 +14,9 @@ alias cdtm="cd ${CODE}/touchstone-management-portal"
 alias cdt="cd ${CODE}"
 alias cdT="cd ${CODE}/Tools"
 alias cds="cd ${CODE}/scripts"
-alias cdo="cd /Users/safiyat/VoerEirAB/openRCs"
+alias cdo="cd ${HOME}/VoerEirAB/openRCs"
 
-alias ts="source ${CODE}/venv/bin/activate"
+alias ts="source ${CODE}/venv310/bin/activate"
 
 function fetch_mos_cert(){
   FUEL_SERVER=141.255.186.158
@@ -24,14 +24,14 @@ function fetch_mos_cert(){
   FUEL_CERT_PATH=/var/lib/fuel/keys/1/haproxy/public_haproxy.pem
   CONTROLLER_CERT_PATH=/var/lib/astute/haproxy/public_haproxy.pem
   INTERMEDIATE_PATH=/tmp/public_haproxy.pem
-  OUTPUT_PATH=/Users/safiyat/VoerEirAB/openRCs/newhaproxy_$(date +%Y%m%d).pem
+  OUTPUT_PATH=${HOME}/VoerEirAB/openRCs/newhaproxy_$(date +%Y%m%d).pem
   ssh root@${FUEL_SERVER} "scp ${CONTROLLER}:${CONTROLLER_CERT_PATH} ${INTERMEDIATE_PATH}"
   scp root@"${FUEL_SERVER}:${INTERMEDIATE_PATH}" "${OUTPUT_PATH}"
   ssh root@"${FUEL_SERVER}" "rm ${INTERMEDIATE_PATH}"
-  ln -sf ${OUTPUT_PATH} /Users/safiyat/VoerEirAB/openRCs/cacert.pem
+  ln -sf ${OUTPUT_PATH} ${HOME}/VoerEirAB/openRCs/cacert.pem
 }
 
 # To enable webpack.
-if [ -d /Users/safiyat/VoerEirAB/Code/touchstone-web/node_modules/.bin/ ]; then
-  export PATH=/Users/safiyat/VoerEirAB/Code/touchstone-web/node_modules/.bin/:${PATH}
+if [ -d ${HOME}/VoerEirAB/Code/touchstone-web/node_modules/.bin/ ]; then
+  export PATH=${HOME}/VoerEirAB/Code/touchstone-web/node_modules/.bin/:${PATH}
 fi

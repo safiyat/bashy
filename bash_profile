@@ -32,7 +32,7 @@ fi
 
 #SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 #SCRIPT_DIR=$(greadlink -f $0)
-SCRIPT_DIR=/Users/safiyat/GitHub/bashy
+SCRIPT_DIR=${HOME}/GitHub/bashy
 
 # Required for discovering gmp.h when installing pycrypto.
 # export "CFLAGS=-I/usr/local/include -L/usr/local/lib"
@@ -73,6 +73,6 @@ for directory in ${SCRIPT_DIR}/X_profile.d/common ${SCRIPT_DIR}/X_profile.d/bash
 	fi
 done
 
-if [ -f /Users/safiyat/.bashrc ]; then
-	source /Users/safiyat/.bashrc
+if [ -f ${HOME}/.bashrc ]; then
+	source ${HOME}/.bashrc
 fi

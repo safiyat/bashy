@@ -8,3 +8,8 @@ export LC_CTYPE=en_US.UTF-8
 if [ -d "/opt/homebrew/bin" ]; then
     export PATH=/opt/homebrew/bin:$PATH
 fi
+
+if [ -d "${HOME}/.local/bin" ]; then
+    path="$(realpath ${HOME}/.local/bin)"
+    export PATH=$PATH:${path}
+fi

@@ -1,12 +1,26 @@
 # brew installs many bins here.
 export PATH="/usr/local/sbin:$PATH"
 
+if [ -z "${PKG_CONFIG_PATH}" ]; then
+    export PKG_CONFIG_PATH=/usr/lib/pkgconfig
+fi
+
+function prepend_to_pkgconfig() {
+    # set -x
+    path="$1"
+
+    if [ -d "${path}" ]; then
+        export PKG_CONFIG_PATH="${path}:${PKG_CONFIG_PATH}"
+    fi
+    # set +x
+}
+
 function prepend_to_path() {
     # set -x
     path="$1"
 
     if [ -d "${path}" ]; then
-        export PATH="${path}:$PATH"
+        export PATH="${path}:${PATH}"
     fi
     # set +x
 }
@@ -130,7 +144,7 @@ prepend_to_path "${brew_prefix}/opt/coreutils/libexec/gnubin"
 #export CPPFLAGS="-I/usr/local/opt/libffi/include"
 
 # For pkg-config to find libffi you may need to set:
-#export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+prepend_to_pkgconfig "/usr/local/opt/libffi/lib/pkgconfig"
 
 ###############################################################################
 ###############################################################################
@@ -169,7 +183,7 @@ prepend_to_path "${brew_prefix}/opt/mysql@5.7/bin"
 #export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
 
 # For pkg-config to find mysql@5.7 you may need to set:
-#export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
+prepend_to_pkgconfig "/usr/local/opt/mysql@5.7/lib/pkgconfig"
 
 ###############################################################################
 ###############################################################################
@@ -182,7 +196,7 @@ prepend_to_path "${brew_prefix}/opt/ncurses/bin"
 #export CPPFLAGS="-I/usr/local/opt/ncurses/include"
 
 # For pkg-config to find ncurses you may need to set:
-#export PKG_CONFIG_PATH="/usr/local/opt/ncurses/lib/pkgconfig"
+prepend_to_pkgconfig "/usr/local/opt/ncurses/lib/pkgconfig"
 
 ###############################################################################
 ###############################################################################
@@ -198,7 +212,7 @@ prepend_to_path "${brew_prefix}/opt/mongodb-community@4.4/bin"
 #export CPPFLAGS="-I/usr/local/opt/readline/include"
 
 # For pkg-config to find readline you may need to set:
-#export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig"
+prepend_to_pkgconfig "/usr/local/opt/readline/lib/pkgconfig"
 
 ###############################################################################
 ###############################################################################
@@ -212,7 +226,7 @@ prepend_to_path "${brew_prefix}/opt/icu4c/sbin"
 #export CPPFLAGS="-I/usr/local/opt/icu4c/include"
 
 # For pkg-config to find icu4c you may need to set:
-#export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
+prepend_to_pkgconfig "/usr/local/opt/icu4c/lib/pkgconfig"
 
 ###############################################################################
 ###############################################################################
@@ -253,3 +267,274 @@ append_to_cppflags "${brew_prefix}/opt/openblas/include"
 ###############################################################################
 
 prepend_to_path "${brew_prefix}/share/google-cloud-sdk/bin/"
+
+###############################################################################
+###############################################################################
+
+prepend_to_pkgconfig "${brew_prefix}/opt/ffmpeg@6/lib/pkgconfig"
+prepend_to_path "${brew_prefix}/opt/ffmpeg@6/bin"
+append_to_ldflags  "${brew_prefix}/opt/ffmpeg@6/lib"
+append_to_cppflags "${brew_prefix}/opt/ffmpeg@6/include"
+
+###############################################################################
+###############################################################################
+
+prepend_to_path "${brew_prefix}/opt/openjdk@11/bin"
+append_to_cppflags "${brew_prefix}/opt/openjdk@11/include"
+
+###############################################################################
+###############################################################################
+
+##### BLANK ADDITION TO PKG_CONFIG #####
+prepend_to_pkgconfig /usr/local/Homebrew/Library/Homebrew/os/mac/pkgconfig
+prepend_to_pkgconfig /usr/local/Homebrew/lib/pkgconfig
+prepend_to_pkgconfig /usr/local/Homebrew/Cellar/jansson/2.14/lib/pkgconfig
+prepend_to_pkgconfig /usr/local/Homebrew/Cellar/pcre/8.45/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Library/Homebrew/os/mac/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Library/Homebrew/vendor/portable-ruby/3.3.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Library/Homebrew/vendor/portable-ruby/3.1.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Library/Homebrew/vendor/portable-ruby/3.3.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/rubberband/3.3.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libpsl/0.21.5_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/cjson/1.7.18/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/faad2/2.11.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/hwloc/2.10.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libheif/1.17.6_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libtiff/4.6.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gmp/6.3.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/aribb24/1.0.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/ffmpeg/7.0.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/fdk-aac/2.0.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/xorgproto/2024.1/share/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/adwaita-icon-theme/46.0/share/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libidn2/2.3.7/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libunibreak/6.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libmagic/5.45/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxml2/2.10.3_2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxml2/2.12.7/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxml2/2.12.8/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxml2/2.11.4_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxml2/2.12.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/zbar/0.23.90_4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libksba/1.6.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libshout/2.4.6_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxau/1.0.11/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/little-cms2/2.16/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libsoup/3.4.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxtst/1.2.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libpng/1.6.43/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/ncurses/6.5/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libiscsi/1.20.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pygobject3/3.48.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/taglib/1.13.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/frei0r/2.3.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/frei0r/2.3.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gtk+3/3.24.42/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/nettle/3.10/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/nettle/3.9.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pixman/0.42.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/mpdecimal/4.0.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxdmcp/1.1.5/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/opus/1.5.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libice/1.1.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/popt/1.19/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/freetype/2.13.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/mpfr/4.2.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/rtmpdump/2.4-20151223_3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/imath/3.1.11/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libsamplerate/0.2.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libvorbis/1.3.7/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/mpg123/1.32.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/liblqr/0.4.2_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pango/1.52.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pango/1.54.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openjpeg/2.5.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/highway/1.1.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/highway/1.2.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libyaml/0.2.5/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/ldns/1.8.3_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/zimg/3.0.5/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/apr-util/1.6.3_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/brotli/1.1.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gtksourceview4/4.8.4_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gdk-pixbuf/2.42.12/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/bdw-gc/8.2.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/speex/1.2.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libogg/1.3.5/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libslirp/4.7.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libslirp/4.8.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/icu4c/74.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/shared-mime-info/2.4/share/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/oath-toolkit/2.6.11/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/zeromq/4.3.5_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/harfbuzz/8.5.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/harfbuzz/8.4.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/python@3.12/3.12.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/python@3.12/3.12.4/Frameworks/Python.framework/Versions/3.12/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/python@3.12/3.12.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/python@3.12/3.12.3/Frameworks/Python.framework/Versions/3.12/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/vte3/0.76.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/vte3/0.76.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libbluray/1.3.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/glib/2.80.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/glib/2.80.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/glib/2.80.0_2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxcb/1.17.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/readline/8.2.10/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/at-spi2-core/2.52.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/ffmpeg@6/6.1.1_2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openvino/2024.2.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openvino/2024.1.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/aom/3.9.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/aom/3.9.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/mbedtls/3.6.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libde265/1.0.15/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/lz4/1.9.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/tbb/2021.12.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/graphite2/1.3.14/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/dbus/1.14.10/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/json-glib/1.8.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libarchive/3.7.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libassuan/2.5.7/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/srt/1.5.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libnet/1.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/tesseract/5.4.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/tesseract/5.3.4_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/cairo/1.18.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/webp/1.4.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/sqlite/3.46.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libgpg-error/1.49/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/c-ares/1.19.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/c-ares/1.19.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/c-ares/1.28.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gobject-introspection/1.80.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/protobuf@21/21.12/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/fribidi/1.0.14/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/fribidi/1.0.15/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/svt-av1/2.0.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/svt-av1/2.1.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libsmi/0.5.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libvirt/9.6.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libvirt/10.3.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libvirt/10.4.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/zlib/1.3.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxmlsec1/1.3.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libpthread-stubs/0.5/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/xz/5.4.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libosinfo/1.11.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libnghttp2/1.61.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/vde/2.3.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/lua/5.4.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/bash/5.2.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/cunit/2.1-3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openexr/3.2.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libgcrypt/1.10.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/fontconfig/2.15.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gtk4/4.14.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxfixes/6.0.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openblas/0.3.27/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pkcs11-helper/1.29.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libmaxminddb/1.7.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libmaxminddb/1.9.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/capstone/5.0.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gtk-vnc/1.3.1_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libfido2/1.14.0_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libvpx/1.13.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxrender/0.9.11/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/phodav/3.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/librist/0.2.10_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libb2/0.98.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/flac/1.4.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libvmaf/3.0.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openssl@3/3.3.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openssl@3/3.3.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/graphene/1.10.8/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libssh2/1.11.0_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libmicrohttpd/1.0.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/librsvg/2.58.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libcbor/0.11.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/zstd/1.5.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/mysql/8.3.0_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/tcl-tk/8.6.14/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libsm/1.2.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libsodium/1.0.19/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libsodium/1.0.20/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/jbig2dec/0.20/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/dav1d/1.4.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/dav1d/1.4.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/dav1d/1.4.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/apr/1.7.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/confuse/3.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/opencore-amr/0.1.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/rav1e/0.7.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxext/1.3.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/spice-gtk/0.42_3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libtasn1/4.19.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/oniguruma/6.9.9/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libraw/0.21.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/isl/0.26/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxmu/1.2.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libssh/0.10.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libusrsctp/0.9.5.0_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxt/1.3.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pcre2/10.43/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pcre2/10.44/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libevent/2.1.12_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openssl@1.1/1.1.1v/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libvirt-glib/5.0.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gstreamer/1.24.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gstreamer/1.24.5/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/leptonica/1.84.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pcre/8.45/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/x264/r3108/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libepoxy/1.5.10/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/jpeg-xl/0.10.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libidn/1.42/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/pugixml/1.14/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libvidstab/1.1.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/usbredir/0.14.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/orc/0.4.38/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/x265/3.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libsoxr/0.1.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/spice-protocol/0.14.4/share/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/unbound/1.20.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/speexdsp/1.2.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/theora/1.1.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/jq/1.7.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libnice/0.1.22/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/openldap/2.6.7/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/sdl2/2.30.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/sdl2/2.30.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libxi/1.8.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libusb/1.0.27/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/python@3.11/3.11.6/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/python@3.11/3.11.6/Frameworks/Python.framework/Versions/3.11/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/srtp/2.6.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/qpdf/11.5.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/yajl/2.1.0/share/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/rpm/4.19.1.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libass/0.17.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/python@3.8/3.8.19/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/python@3.8/3.8.19/Frameworks/Python.framework/Versions/3.8/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/imagemagick/7.1.1-34/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/fish/3.6.1/share/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/guile/3.0.9_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libsndfile/1.2.2/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/jasper/4.2.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/p11-kit/0.25.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/libx11/1.8.9/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/wireshark/4.2.5/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/ruby/3.2.2_1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/ruby/3.3.1/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/ruby/3.3.0/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/ruby/3.3.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/lzo/2.10/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/jpeg-turbo/3.0.3/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gnutls/3.8.4/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/gsettings-desktop-schemas/46.0/share/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/Cellar/npth/1.7/lib/pkgconfig
+prepend_to_pkgconfig /opt/homebrew/share/pkgconfig
+prepend_to_pkgconfig /opt/X11/lib/pkgconfig
+prepend_to_pkgconfig /opt/X11/share/pkgconfig
+###############################################################################
