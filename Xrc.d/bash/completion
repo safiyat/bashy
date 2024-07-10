@@ -26,6 +26,6 @@ fi
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 # Completions for limactl
-if which -s limactl; then
+if which limactl > /dev/null; then
     source <(limactl completion bash)
 fi

@@ -46,6 +46,10 @@ function append_to_cppflags() {
     # set +x
 }
 
+if ! which brew > /dev/null; then
+    return
+fi
+
 brew_prefix=$(brew --prefix)
 
 ###############################################################################
