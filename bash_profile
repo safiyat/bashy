@@ -67,7 +67,7 @@ export PATH
 
 for directory in ${SCRIPT_DIR}/X_profile.d/common ${SCRIPT_DIR}/X_profile.d/bash; do
 	if [ -d ${directory} ]; then
-		for bash_profile in $(find ${directory} -type f); do
+		for bash_profile in $(find ${directory} -not -path '*/.*' -type f); do
 			source ${bash_profile}
 		done
 	fi
