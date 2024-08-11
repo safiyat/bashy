@@ -542,3 +542,4 @@ prepend_to_pkgconfig /opt/homebrew/share/pkgconfig
 prepend_to_pkgconfig /opt/X11/lib/pkgconfig
 prepend_to_pkgconfig /opt/X11/share/pkgconfig
 ###############################################################################
+prepend_to_path /opt/homebrew/opt/go@1.21/bin
