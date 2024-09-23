@@ -131,9 +131,12 @@ function loiter() {
         echo 'loiter command is not available.' > /dev/stderr
         return
     fi
-    source ${HOME}/GitHub/mouse_cursor_randomizer/venv/bin/activate
-    python ${HOME}/GitHub/mouse_cursor_randomizer/move.py
-    deactivate
+    # In a subshell, so that the invoking shell's virtual environment (if any) isn't deactivated.
+    (
+        source ${HOME}/GitHub/mouse_cursor_randomizer/venv/bin/activate
+        python ${HOME}/GitHub/mouse_cursor_randomizer/move.py
+        deactivate
+    )
 }
 
 function keep_alive() {

@@ -15,6 +15,7 @@ alias cdt="cd ${CODE}"
 alias cdT="cd ${CODE}/Tools"
 alias cds="cd ${CODE}/scripts"
 alias cdo="cd ${HOME}/VoerEirAB/openRCs"
+alias cdod="cd ${HOME}/Library/CloudStorage/OneDrive-VoerEirAB/"
 
 alias ts="source ${CODE}/venv310/bin/activate"
 
