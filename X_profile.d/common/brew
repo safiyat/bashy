@@ -284,7 +284,9 @@ append_to_cppflags "${brew_prefix}/opt/ffmpeg@6/include"
 ###############################################################################
 
 prepend_to_path "${brew_prefix}/opt/openjdk@11/bin"
+prepend_to_path "${brew_prefix}/opt/openjdk/bin"
 append_to_cppflags "${brew_prefix}/opt/openjdk@11/include"
+append_to_cppflags "${brew_prefix}/opt/openjdk/include"
 
 ###############################################################################
 ###############################################################################

@@ -152,3 +152,16 @@ function keep_alive() {
         sleep 1
     done
 }
+
+function dmesg_like() {
+    # Some useful filter strings:
+    #   - IOAccessoryManager
+
+    filter_string="${1}"
+    if [[ -n "${filter_string}" ]]; then
+        f="and senderImagePath contains[cd] \"${filter_string}\""
+    fi
+    set -x
+    sudo log stream --predicate "processID == 0 ${f}" --debug
+    set +x
+}
