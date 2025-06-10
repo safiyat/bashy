@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Called .bashrc."
+# echo "Called .bashrc."
 
 #set -x
 
@@ -24,3 +24,9 @@ else
 	done
 fi
 #set +x
+
+. "$HOME/.cargo/env"
+
+
+### tmp
+export KUBECONFIG="/Users/safiyat/Downloads/eks-arm-safiyat 1.yaml"

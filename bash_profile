@@ -8,7 +8,7 @@
 # login shell, or as a non-interactive shell with the --login option.
 # This means that .bash_profile is great for commands that should run only once.
 
-echo "Called .bash_profile."
+# echo "Called .bash_profile."
 
 export HOMEBREW_PREFIX="/opt/homebrew";
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
@@ -76,3 +76,5 @@ done
 if [ -f ${HOME}/.bashrc ]; then
 	source ${HOME}/.bashrc
 fi
+
+. "$HOME/.cargo/env"

@@ -33,18 +33,30 @@ function check_ssh_alive(){
 
 
 function v(){
-    set -x
+    # set -x
     venv_name=${1:-venv}
     python_bin=${2:-python}
     ${python_bin} -m venv --copies ${venv_name}
-    set +x
+    # set +x
 }
 
 function s(){
-    set -x
+    #set -x
+    if [ -f "$1" ]; then
+        # shellcheck source=/dev/null
+        source "$1"
+        return
+    fi
     venv_name=${1:-venv}
-    source ${venv_name}/bin/activate
-    set +x
+    activation_script="${venv_name}/bin/activate"
+    if [ ! -f "${activation_script}" ]; then
+        echo "No virtual environment found at ${venv_name}." > /dev/stderr
+        return
+    fi
+    # shellcheck source=/dev/null
+    source "${activation_script}"
+    echo "Running the interpreter: $(python -V)"
+    # set +x
 }
 
 
@@ -164,4 +176,8 @@ function dmesg_like() {
     set -x
     sudo log stream --predicate "processID == 0 ${f}" --debug
     set +x
+}
+
+function pstree_enhanced() {
+    pstree -g 3 -p "${1}"
 }
