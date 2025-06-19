@@ -29,4 +29,4 @@ fi
 
 
 ### tmp
-export KUBECONFIG="/Users/safiyat/Downloads/eks-arm-safiyat 1.yaml"
+export KUBECONFIG="/Users/safiyat/Downloads/eks-.yaml"
