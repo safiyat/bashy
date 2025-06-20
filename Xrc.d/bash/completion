@@ -1,16 +1,29 @@
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-. /etc/bash_completion
-fi
 
-for completion in $(find /etc/bash_completion.d -not -path '*/.*' -type f); do
-    test -x ${completion} && . ${completion}
+COMPLETION_FILES=(
+"/etc/bash_completion"
+)
+
+COMPLETION_DIRS=(
+"/etc/bash_completion.d"
+"/opt/homebrew/share/bash-completion/completions"
+)
+
+
+for completion_file in ${COMPLETION_FILES[@]}; do
+    # if [ -f "${completion_file}" ] && ! shopt -oq posix; then
+    if [ -f "${completion_file}" ]; then
+        . "${completion_file}"
+    fi
 done
 
-if [ -d /opt/homebrew/share/bash-completion/completions ]; then
-    for completion in $(find /opt/homebrew/share/bash-completion/completions -not -path '*/.*' ! -type d); do
-        test -x ${completion} && . ${completion}
-    done
-fi
+for completion_dir in ${COMPLETION_DIRS[@]}; do
+    if [ -d "${completion_dir}" ]; then
+        for completion in $(find "${completion_dir}" -not -path '*/.*' -type f); do
+            test -x ${completion} && . ${completion}
+        done
+    fi
+done
+
 
 # Completions for kubectl
 if which kubectl > /dev/null; then

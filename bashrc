@@ -2,7 +2,7 @@
 
 # echo "Called .bashrc."
 
-#set -x
+# set -x
 
 #SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 SCRIPT_DIR=${HOME}/GitHub/bashy
@@ -24,8 +24,6 @@ else
 	done
 fi
 #set +x
-
-. "$HOME/.cargo/env"
 
 
 ### tmp

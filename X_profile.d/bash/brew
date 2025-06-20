@@ -1,7 +1,8 @@
 ###############################################################################
 ###############################################################################
 
-if ! which brew > /dev/null; then
+# Not using `which` since it sometimes comes from node_modules/.bin/which
+if ! /usr/bin/which brew > /dev/null; then
     return
 fi
 
